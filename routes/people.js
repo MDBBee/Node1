@@ -4,11 +4,14 @@ const {
   getPeople,
   postPerson,
   deletePerson,
+  updatePerson,
 } = require("../controllers/people");
 
 router.get("/", getPeople);
 
 router.post("/", postPerson);
+
+router.put("/:id", updatePerson);
 
 router.delete("/:id", deletePerson);
 

@@ -12,6 +12,25 @@ const postPerson = (req, res) => {
   res.status(200).json({ person: req.body.name });
 };
 
+const updatePerson = (req, res) => {
+  const id = Number(req.params.id);
+  const nameR = req.body.name;
+  const person = people.find((p) => p.id === id);
+
+  if (!person)
+    return res
+      .status(404)
+      .json({ success: false, msg: `No object with the id: ${id}` });
+
+  const newPeople = people.map((p) => {
+    if (p.id === id) {
+      return { id, name: nameR };
+    }
+    return p;
+  });
+  res.status(200).json({ success: true, data: newPeople });
+};
+
 const deletePerson = (req, res) => {
   const id = Number(req.params.id);
   person = people.find((p) => p.id === id);
@@ -31,4 +50,5 @@ module.exports = {
   getPeople,
   postPerson,
   deletePerson,
+  updatePerson,
 };
